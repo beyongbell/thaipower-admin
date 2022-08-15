@@ -1,0 +1,133 @@
+{
+  "navbar": {
+    "search": {
+      "text": "Search..."
+    },
+    "dropdown": {
+      "site": {
+        "list": {
+          "github": "GitHub",
+          "bitbucket": "Bitbucket",
+          "dribbble": "Dribbble",
+          "dropbox": "Dropbox",
+          "mailchimp": "Mail Chimp",
+          "slack": "Slack"
+        }
+      },
+      "notification": {
+        "badge": "3",
+        "text": "Notifications",
+        "subtext": "Mark all as unread",
+        "order": {
+          "title": "Your order is placed",
+          "text": "If several languages coalesce the grammar",
+          "time": "3 min ago"
+        },
+        "james": {
+          "title": "James Lemire",
+          "text": "It will seem like simplified English.",
+          "time": "1 hours ago"
+        },
+        "item": {
+          "title": "Your item is shipped",
+          "text": "If several languages coalesce the grammar",
+          "time": "3 min ago"
+        },
+        "salena": {
+          "title": "Salena Layfield",
+          "text": "As a skeptical Cambridge friend of mine occidental.",
+          "time": "1 hours ago"
+        },
+        "button": "Load More.."
+      },
+      "marcus": {
+        "text": "Marcus",
+        "list": {
+          "profile": "Profile",
+          "mywallet": "My Wallet",
+          "settings": "Settings",
+          "lockscreen": "Lock screen",
+          "logout": "Logout"
+        }
+      }
+    }
+  },
+  "menuitems": {
+    "menu": {
+      "text": "Pages"
+    },
+    "dashboard": {
+      "text": "Dashboard",
+      "badge": "01"
+    },
+    "cmsiwebsite": {
+      "text": "CMS I Website",
+      "list": {
+        "popup": "POP UP",
+        "herobanner": "Hero Banner",
+        "story": "Story",
+        "recommend": "Recommend",
+        "about": "About",
+        "faq": "FAQ",
+        "privacypolicy": "Privacy Policy",
+        "contactus": "Contact Us"
+      }
+    },
+    "cmsishop": {
+      "text": "CMS I Shop",
+      "list": {
+        "shopBanner": "Shop Banner",
+        "category": "Category",
+        "shop": "Shop (Brand)",
+        "sku": "SKU (Product)",
+        "speacial": "Speacial",
+        "collection": "Collection"
+      }
+    },
+    "cmsistory": {
+      "text": "CMS I Story",
+      "list": {
+        "storybanner": "Story Banner",
+        "storyhighlight": "Story Highlight",
+        "storydetail": "Story Detail"
+      }
+    },
+    "fleamarket": {
+      "text": "FLEA Market",
+      "list": {
+        "fleamarketbanner": "FLEA Market Banner",
+        "category": "Category",
+        "shop": "Shop (Brand)",
+        "sku": "SKU (Product)"
+      }
+    },
+    "ecommerce": {
+      "text": "E-Commerce",
+      "list": {
+        "order": "Order",
+        "stock": "Stock"
+      }
+    },
+    "brandcenter": {
+      "text": "Brand Center",
+      "list": {
+        "brandlist": "Brand List",
+        "educationhub": "Education Hub"
+      }
+    },
+    "report": {
+      "text": "Report",
+      "list": {
+        "saleorder": "Sale Order",
+        "stockmovement": "Stock Movement",
+        "brand": "Brand"
+      }
+    },
+    "setting": {
+      "text": "Setting",
+      "list": {
+        "userrole": "User & Role"
+      }
+    }
+  }
+}
