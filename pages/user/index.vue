@@ -56,7 +56,7 @@
                     <b-dropdown-item-button style="font-weight: 500;">&nbsp;Create New User</b-dropdown-item-button>
                   </nuxt-link>
                   <b-dropdown-item-button>
-                    <input type="file" id="file" @change="changeToJSON($event)" />
+                    <input type="file" id="file" @change="changeToJSON" />
                     <label for="file" class="text-dark">Import New User</label>
                   </b-dropdown-item-button>
                 </b-dropdown>
@@ -89,6 +89,11 @@
                 <template #table-busy>
                   <div class="text-center text-danger my-2">
                     <b-spinner variant="primary" label="Spinning"></b-spinner>
+                  </div>
+                </template>
+                <template #empty>
+                  <div class="text-center text-danger my-2">
+                   <span>No Data</span>
                   </div>
                 </template>
                 <template v-slot:cell(check)="data">
@@ -146,20 +151,6 @@
                         </a>
                       </li>
                     </template>
-                    <!-- <b-dropdown
-                      class="list-inline-item"
-                      variant="white"
-                      right
-                      toggle-class="text-muted font-size-18 px-2"
-                    >
-                      <template v-slot:button-content>
-                        <i class="uil uil-ellipsis-v"></i>
-                      </template>
-
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </b-dropdown>-->
                   </ul>
                 </template>
               </b-table>
@@ -213,6 +204,7 @@ export default {
       // switch1: true,
       // switch2: false,
       loaded: false,
+      isduplicate: false,
       userList: [],
       totalRows: 1,
       currentPage: 1,
@@ -222,57 +214,7 @@ export default {
       pageOptions: [10, 25, 50, 100],
       filter: null,
       filterOn: [],
-      json_data: [
-        {
-          id: 1,
-          fname: "Jesse",
-          lname: "Simmons",
-          date: "2016-10-15 13:43:27",
-          gender: "Male",
-        },
-        {
-          id: 2,
-          fname: "John",
-          lname: "Jacobs",
-          date: "2016-12-15 06:00:53",
-          gender: "Male",
-        },
-        {
-          id: 3,
-          fname: "Tina",
-          lname: "Gilbert",
-          date: "2016-04-26 06:26:28",
-          gender: "Female",
-        },
-        {
-          id: 4,
-          fname: "Clarence",
-          lname: "Flores",
-          date: "2016-04-10 10:28:46",
-          gender: "Male",
-        },
-        {
-          id: 5,
-          fname: "Anne",
-          lname: "Lee",
-          date: "2016-12-06 14:38:38",
-          gender: "Female",
-        },
-        {
-          id: 6,
-          fname: "佟博",
-          lname: "能娜",
-          date: "2016-12-06 14:38:38",
-          gender: "Male",
-        },
-        {
-          id: 7,
-          fname: "Širůčková",
-          lname: "Tereza",
-          date: "2019-12-06 14:38:38",
-          gender: "Female",
-        },
-      ],
+      json_data: [],
       import_list: [],
       selectedUserData: [],
       sortBy: "age",
@@ -399,7 +341,7 @@ export default {
         confirmButtonText: "Delete",
       }).then((result) => {
         if (result.value) {
-          this.$axios.delete(`/api/users/${data}`).then((response) => {
+          this.$axios.delete(`/api/users/${data}`).then(() => {
             this.getAlluser();
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
           });
@@ -454,13 +396,13 @@ export default {
       } else {
         this.userList = response.data;
       }
-      console.log(this.userList);
     },
-    changeToJSON(evt) {
+    changeToJSON(event) {
       this.import_list = [];
+      this.isduplicate = false;
       let reader = new FileReader();
       let result = [];
-      let filePath = evt.target.value;
+      let filePath = event.target.value;
       let allowedtype = /(\.csv)$/i;
       if (!allowedtype.exec(filePath)) {
         Swal.fire( "Error!", "File must be .csv type.", "error");
@@ -482,8 +424,9 @@ export default {
               result.push(obj);
             }
           });
+          result.pop();
           for (const item of result) {
-            if (item.firstname || item.lastname || item.email || item.phone || item.password || item.username || item.role || item.status) {
+            if (item.firstname && item.lastname && item.email && item.phone && item.password && item.username && item.role && item.status) {
               let userList = await this.$axios.get("/api/users?populate=role");
               let check = userList.data.find((user) => {
                 return ( user.email === item.email || user.username === item.username );
@@ -493,34 +436,44 @@ export default {
                 item.phone = item.phone.length === 9 ? "0" + item.phone : item.phone;
                 item.role = parseInt(item.role) > 5 ? "4" : parseInt(item.role) === 1 ? "4" : parseInt(item.role) === 2 ? "4" : item.role;
                 this.import_list.push(item);
+              } else {
+              this.isduplicate = true;
+              this.loaded = true;
               }
             } else {
+              Swal.fire( "Error!", "Field has null value", "error");
+              document.getElementById("file").value = null;
               this.loaded = true;
             }
           }
-          for (const [i, item] of this.import_list.entries()) {
-            this.loaded = false;
-            this.$axios.post("/api/users", item).then(() => {
-                if (i === this.import_list.length - 1) {
-                  Swal.fire({
-                    title: "Success",
-                    text: "User has been created",
-                    icon: "success",
-                    button: "Ok",
-                  }).then((result) => {
-                    if (result) {
-                      this.getAlluser();
-                    }
-                  });
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+          if(!this.isduplicate) {
+            for (const [i, item] of this.import_list.entries()) {
+              this.loaded = false;
+              this.$axios.post("/api/users", item).then(() => {
+                  if (i === this.import_list.length - 1) {
+                    Swal.fire({
+                      title: "Success",
+                      text: "User has been created",
+                      icon: "success",
+                      button: "Ok",
+                    }).then((result) => {
+                      if (result) {
+                        this.getAlluser();
+                      }
+                    });
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          } else {
+            Swal.fire( "Error!", "Email or Username is already exist", "error");
+            document.getElementById("file").value = null;
           }
         };
       }
-      reader.readAsBinaryString(evt.target.files[0]);
+      reader.readAsBinaryString(event.target.files[0]);
     },
     selectedUser(data) {
       if (!this.selectedUserData.includes(data)) {
@@ -533,8 +486,8 @@ export default {
 };
 </script>
 
-<style>
-input[type="file"] {
+<style scoped>
+* >>> input[type="file"] {
   height: 0;
   overflow: hidden;
   width: 0;

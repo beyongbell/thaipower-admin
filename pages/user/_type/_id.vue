@@ -11,7 +11,7 @@
             <div class="row">
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="username">First Name</label>
+                  <label for="username">First Name<span class="text-danger">*</span></label>
                   <input
                     type="text"
                     class="form-control"
@@ -27,7 +27,7 @@
               </div>
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="username">Last Name</label>
+                  <label for="username">Last Name<span class="text-danger">*</span></label>
                   <input
                     type="text"
                     class="form-control"
@@ -45,7 +45,7 @@
             <div class="row mt-3">
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="username">Username</label>
+                  <label for="username">Username<span class="text-danger">*</span></label>
                   <input
                     type="text"
                     class="form-control"
@@ -61,7 +61,7 @@
               </div>
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group" v-if="$route.params.type === 'add'">
-                  <label for="password">Password</label>
+                  <label for="password">Password<span class="text-danger">*</span></label>
                   <input
                     type="password"
                     class="form-control"
@@ -81,7 +81,7 @@
             <div class="row mt-3">
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="email">Email</label>
+                  <label for="email">Email<span class="text-danger">*</span></label>
                   <input
                     type="email"
                     class="form-control"
@@ -99,7 +99,7 @@
               </div>
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="phone">Phone</label>
+                  <label for="phone">Phone<span class="text-danger">*</span></label>
                   <input
                     type="text"
                     class="form-control"
@@ -121,20 +121,20 @@
             <div class="row mt-3" v-if="readonly">
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="email">Role</label>
+                  <label for="role">Role</label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="email"
+                    id="role"
                     v-model="view.role"
-                    placeholder="Email"
+                    placeholder="Role"
                     :readonly="readonly"
                   />
                 </div>
               </div>
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="phone">Status</label>
+                  <label for="status">Status</label>
                   <input
                     type="text"
                     class="form-control"
@@ -149,7 +149,7 @@
             <div class="row mt-3" v-else>
               <div class="cols-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <label for="email">Role</label>
+                  <label for="email">Role<span class="text-danger">*</span></label>
                   <multiselect
                     v-model="form.role"
                     :options="roleList"
@@ -258,6 +258,7 @@ export default {
       },
     };
   },
+  middleware: ["rolepath"],
   mixins: [validationMixin],
   validations: {
     form: {
@@ -323,9 +324,8 @@ export default {
     getUser(id) {
       this.$axios.get(`/api/users/${id}?populate=role`).then((response) => {
         this.form = response.data;
-        this.view.role = response.data.role.namethis;
-        this.view.status =
-          response.data.status === true ? "Active (Default)" : "Inactive";
+        this.view.role = response.data.role.name;
+        this.view.status = response.data.status === true ? "Active (Default)" : "Inactive";
         this.form.status = this.statusList.find(
           (option) => option.value === response.data.status
         );

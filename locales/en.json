@@ -63,6 +63,7 @@
     "cmsiwebsite": {
       "text": "CMS I Website",
       "list": {
+        "banner": "Home Banner",
         "popup": "POP UP",
         "herobanner": "Hero Banner",
         "story": "Story",
@@ -88,17 +89,8 @@
       "text": "CMS I Story",
       "list": {
         "storybanner": "Story Banner",
-        "storyhighlight": "Story Highlight",
-        "storydetail": "Story Detail"
-      }
-    },
-    "fleamarket": {
-      "text": "FLEA Market",
-      "list": {
-        "fleamarketbanner": "FLEA Market Banner",
-        "category": "Category",
-        "shop": "Shop (Brand)",
-        "sku": "SKU (Product)"
+        "storyhilight": "Story Hilight",
+        "storylist": "Story List"
       }
     },
     "ecommerce": {
@@ -112,7 +104,7 @@
       "text": "Brand Center",
       "list": {
         "brandlist": "Brand List",
-        "educationhub": "Education Hub"
+        "mainbrand": "Main Brand"
       }
     },
     "report": {

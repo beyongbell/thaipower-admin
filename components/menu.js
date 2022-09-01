@@ -20,6 +20,12 @@ export const menuItems = [
         icon: "uil-grid",
         subItems: [
             {
+                id: 40,
+                label: "menuitems.cmsiwebsite.list.banner",
+                link: "/home/banner",
+                parentId: 4
+            },
+            {
                 id: 5,
                 label: "menuitems.cmsiwebsite.list.popup",
                 link: "/",
@@ -120,51 +126,20 @@ export const menuItems = [
             {
                 id: 20,
                 label: "menuitems.cmsistory.list.storybanner",
-                link: "/",
+                link: "/story/storybanner",
                 parentId: 19
             },
             {
                 id: 21,
-                label: "menuitems.cmsistory.list.storyhighlight",
-                link: "/",
+                label: "menuitems.cmsistory.list.storyhilight",
+                link: "/story/storyhilight",
                 parentId: 19
             },
             {
                 id: 22,
-                label: "menuitems.cmsistory.list.storydetail",
-                link: "/",
+                label: "menuitems.cmsistory.list.storylist",
+                link: "/story/storylist",
                 parentId: 19
-            },
-        ]
-    },
-    {
-        id: 23,
-        label: "menuitems.fleamarket.text",
-        icon: "fas fa-hand-holding-heart",
-        subItems: [
-            {
-                id: 24,
-                label: "menuitems.fleamarket.list.fleamarketbanner",
-                link: "/",
-                parentId: 23
-            },
-            {
-                id: 25,
-                label: "menuitems.fleamarket.list.category",
-                link: "/",
-                parentId: 23
-            },
-            {
-                id: 26,
-                label: "menuitems.fleamarket.list.shop",
-                link: "/",
-                parentId: 23
-            },
-            {
-                id: 27,
-                label: "menuitems.fleamarket.list.sku",
-                link: "/",
-                parentId: 23
             },
         ]
     },
@@ -194,14 +169,14 @@ export const menuItems = [
         subItems: [
             {
                 id: 32,
-                label: "menuitems.brandcenter.list.brandlist",
-                link: "/",
+                label: "menuitems.brandcenter.list.mainbrand",
+                link: "/brand/mainbrand",
                 parentId: 31
             },
             {
                 id: 33,
-                label: "menuitems.brandcenter.list.educationhub",
-                link: "/",
+                label: "menuitems.brandcenter.list.brandlist",
+                link: "/brand/brandList",
                 parentId: 31
             },
         ]
